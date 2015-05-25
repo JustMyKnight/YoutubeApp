@@ -78,7 +78,7 @@
         CGFloat x = self.view.bounds.size.width-mpWidth - 5;
         CGFloat y = self.view.bounds.size.height-mpHeight - 1;
         tallContainerFrame = CGRectMake(x, y, 150, self.view.bounds.size.height);
-        containerFrame = CGRectMake(x, y, mpWidth, mpHeight);
+      
         YouTubeVideoFrame = CGRectMake(x, y, mpWidth, mpHeight);
         tallContainerAlpha = 0.0;
         [[self navigationController] setNavigationBarHidden:NO animated:YES];
@@ -86,7 +86,7 @@
     else
     {
         tallContainerFrame = CGRectMake(2, 253, 100, 500);
-        containerFrame = CGRectMake(2, 53, 320, 180);
+        
         YouTubeVideoFrame = CGRectMake(2, 70, 320, 180);
         tallContainerAlpha = 1.0;
       
