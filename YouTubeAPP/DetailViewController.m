@@ -35,8 +35,8 @@
                                                                              target:self
                                                                              action:@selector(back)];        
         [self.navigationItem setLeftBarButtonItem:leftBarButtonItem];
-        
     }
+   
     
     return self;
 }
@@ -49,7 +49,10 @@
     swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
     swipeDown.direction = UISwipeGestureRecognizerDirectionDown;    
     [self.mpContainer addGestureRecognizer:swipeDown];
-    [self.mpContainer addGestureRecognizer:swipeUp];    
+    [self.mpContainer addGestureRecognizer:swipeUp];
+    [self.youTubePlayer addGestureRecognizer:swipeDown];
+    [self.youTubePlayer addGestureRecognizer:swipeUp];
+    
 }
 
 - (BOOL)mpIsMinimized {
@@ -66,33 +69,44 @@
 
 - (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated 
 { 
-    CGRect tallContainerFrame, containerFrame;
+    
+    
+    CGRect tallContainerFrame, containerFrame, YouTubeVideoFrame;
     CGFloat tallContainerAlpha;
     
-    if (minimized) {
-        CGFloat mpWidth = 160;
-        CGFloat mpHeight = 100; // 160:90 == 16:9
-        
-        CGFloat x = 320-mpWidth;
-        CGFloat y = self.view.bounds.size.height - mpHeight;
-        
+    if (minimized)
+    {
+        CGFloat mpWidth = self.youTubePlayer.frame.size.width / 2;
+        CGFloat mpHeight = self.youTubePlayer.frame.size.height / 2;
+        CGFloat x = self.view.bounds.size.width-mpWidth - 5;
+        CGFloat y = self.view.bounds.size.height-mpHeight - 1;
         tallContainerFrame = CGRectMake(x, y, 150, self.view.bounds.size.height);
         containerFrame = CGRectMake(x, y, mpWidth, mpHeight);
-        tallContainerAlpha = 0.0;        
-    } else {
+        YouTubeVideoFrame = CGRectMake(x, y, mpWidth, mpHeight);
+        tallContainerAlpha = 0.0;
+        [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    }
+    else
+    {
         tallContainerFrame = CGRectMake(2, 253, 100, 500);
         containerFrame = CGRectMake(2, 53, 320, 180);
+        YouTubeVideoFrame = CGRectMake(2, 70, 320, 180);
         tallContainerAlpha = 1.0;
-    }    
-    NSTimeInterval duration = (animated)? 0.5 : 0.0;
+      
+    }
+    
+    NSTimeInterval duration = (animated)? 0.3 : 0.0;
     [UIView animateWithDuration:duration animations:^{
+        
+        self.youTubePlayer.frame = YouTubeVideoFrame;
+       // self.mpContainer.frame = containerFrame;
         self.tallMpContainer.frame = tallContainerFrame;
-        self.youTubePlayer.frame=containerFrame;
-        //self.youTubePlayer.alpha=tallContainerAlpha;
-        self.mpContainer.frame = containerFrame;
         self.tallMpContainer.alpha = tallContainerAlpha;
+        
+        
     }];
     if ([self mpIsMinimized] == minimized) return;
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -148,6 +162,18 @@
      }];
     [super viewWillAppear:animated];
     [operation start];
+    [UIView animateWithDuration:0.3 animations:^
+     {
+         CGRect playerViewRect = self.youTubePlayer.frame;
+       //  CGRect detailsViewRect = self.detailsView.frame;
+         
+         playerViewRect.origin.x = 0;
+         playerViewRect.origin.y = 0;
+         playerViewRect.size.width = self.view.bounds.size.width;
+         playerViewRect.size.height = playerViewRect.size.width / 16 * 9 + 20;
+         self.youTubePlayer.frame = playerViewRect;
+         //[self.playerView setSizeOfIFrameToWidth:160 Height:90];
+     }];
 }
 
 - (IBAction)back

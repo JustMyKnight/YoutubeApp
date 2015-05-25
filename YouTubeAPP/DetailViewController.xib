@@ -11,7 +11,6 @@
                 <outlet property="Title" destination="aWY-CR-0ja" id="6DL-Td-Uoi"/>
                 <outlet property="dislike" destination="L76-lx-yQ2" id="89K-59-K9j"/>
                 <outlet property="like" destination="3z1-17-HHR" id="y2e-oL-vcz"/>
-                <outlet property="mpContainer" destination="vJe-7Z-bd9" id="mWk-up-8bs"/>
                 <outlet property="tallMpContainer" destination="w8P-O9-b5s" id="6GH-qe-8Z3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="view_counts" destination="TgO-qp-bul" id="Eed-1P-Gjs"/>
@@ -24,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w8P-O9-b5s">
-                    <rect key="frame" x="3" y="265" width="317" height="295"/>
+                    <rect key="frame" x="3" y="265" width="317" height="118"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PublishedAt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3W-rc-JJf">
                             <rect key="frame" x="104" y="24" width="79" height="21"/>
@@ -76,14 +75,9 @@
                         </label>
                     </subviews>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vJe-7Z-bd9">
-                    <rect key="frame" x="3" y="48" width="317" height="209"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ivn-mV-TwH" customClass="YTPlayerView">
-                            <rect key="frame" x="-1" y="22" width="317" height="179"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
-                    </subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ivn-mV-TwH" customClass="YTPlayerView">
+                    <rect key="frame" x="2" y="78" width="317" height="179"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
