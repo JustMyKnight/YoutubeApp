@@ -35,7 +35,6 @@
                                                                              target:self
                                                                              action:@selector(back)];        
         [self.navigationItem setLeftBarButtonItem:leftBarButtonItem];
-        
     }
     
     return self;
@@ -88,7 +87,7 @@
     [UIView animateWithDuration:duration animations:^{
         self.tallMpContainer.frame = tallContainerFrame;
         self.youTubePlayer.frame=containerFrame;
-        //self.youTubePlayer.alpha=tallContainerAlpha;
+        self.youTubePlayer.alpha=tallContainerAlpha;
         self.mpContainer.frame = containerFrame;
         self.tallMpContainer.alpha = tallContainerAlpha;
     }];
