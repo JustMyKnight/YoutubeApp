@@ -95,6 +95,7 @@
     self.tallMpContainer.alpha = tallContainerAlpha;
     }];
     if ([self mpIsMinimized] == minimized) return;
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
