@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C88828C1B12FBC100948449 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C88828B1B12FBC100948449 /* home.png */; };
+		7C8882901B1312EA00948449 /* SearchVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C88828E1B1312EA00948449 /* SearchVideoCell.m */; };
+		7C8882911B1312EA00948449 /* SearchVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C88828F1B1312EA00948449 /* SearchVideoCell.xib */; };
 		7CB618B41B0EDA1900E27B52 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CB618B31B0EDA1900E27B52 /* search.png */; };
 		7CF727E01B0F2B4B006CA40D /* 1stbtbzy.vichan.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CF727DF1B0F2B4B006CA40D /* 1stbtbzy.vichan.png */; };
 		7CF727E21B0F2C6B006CA40D /* dislike.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CF727E11B0F2C6B006CA40D /* dislike.png */; };
@@ -40,6 +43,10 @@
 
 /* Begin PBXFileReference section */
 		372052CD0751EC2C73362164 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7C88828B1B12FBC100948449 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		7C88828D1B1312EA00948449 /* SearchVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchVideoCell.h; path = ../SearchVideoCell.h; sourceTree = "<group>"; };
+		7C88828E1B1312EA00948449 /* SearchVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchVideoCell.m; path = ../SearchVideoCell.m; sourceTree = "<group>"; };
+		7C88828F1B1312EA00948449 /* SearchVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchVideoCell.xib; path = ../SearchVideoCell.xib; sourceTree = "<group>"; };
 		7CB618B31B0EDA1900E27B52 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		7CF727DF1B0F2B4B006CA40D /* 1stbtbzy.vichan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1stbtbzy.vichan.png; sourceTree = "<group>"; };
 		7CF727E11B0F2C6B006CA40D /* dislike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dislike.png; sourceTree = "<group>"; };
@@ -91,6 +98,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C8882921B1312EF00948449 /* SearchVideoCell */ = {
+			isa = PBXGroup;
+			children = (
+				7C88828D1B1312EA00948449 /* SearchVideoCell.h */,
+				7C88828E1B1312EA00948449 /* SearchVideoCell.m */,
+				7C88828F1B1312EA00948449 /* SearchVideoCell.xib */,
+			);
+			name = SearchVideoCell;
+			sourceTree = "<group>";
+		};
 		84C10AD61B0D7FED004CC9F2 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +131,8 @@
 		84C10AE11B0D7FED004CC9F2 /* YouTubeAPP */ = {
 			isa = PBXGroup;
 			children = (
+				7C8882921B1312EF00948449 /* SearchVideoCell */,
+				7C88828B1B12FBC100948449 /* home.png */,
 				7CF727E11B0F2C6B006CA40D /* dislike.png */,
 				7CF727DF1B0F2B4B006CA40D /* 1stbtbzy.vichan.png */,
 				7CB618B31B0EDA1900E27B52 /* search.png */,
@@ -316,8 +335,10 @@
 			files = (
 				84C10B171B0D831B004CC9F2 /* MasterViewController.xib in Resources */,
 				84C10B0D1B0D8054004CC9F2 /* Images.xcassets in Resources */,
+				7C88828C1B12FBC100948449 /* home.png in Resources */,
 				84C10B1E1B0D83A9004CC9F2 /* DetailViewController.xib in Resources */,
 				7CB618B41B0EDA1900E27B52 /* search.png in Resources */,
+				7C8882911B1312EA00948449 /* SearchVideoCell.xib in Resources */,
 				84C10B091B0D8022004CC9F2 /* LaunchScreen.xib in Resources */,
 				7CF727E01B0F2B4B006CA40D /* 1stbtbzy.vichan.png in Resources */,
 				84C10B291B0D970E004CC9F2 /* CustomVideoCell.xib in Resources */,
@@ -375,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84C10B101B0D8117004CC9F2 /* YouTubeVideo.m in Sources */,
+				7C8882901B1312EA00948449 /* SearchVideoCell.m in Sources */,
 				84C10B161B0D831B004CC9F2 /* MasterViewController.m in Sources */,
 				84C10AE81B0D7FED004CC9F2 /* AppDelegate.m in Sources */,
 				84C10AE51B0D7FED004CC9F2 /* main.m in Sources */,

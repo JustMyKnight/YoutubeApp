@@ -12,6 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "YouTubeVideo.h"
 #import "DetailViewController.h"
+#import "MasterViewController.h"
 
 @interface SearchViewController () <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
@@ -24,19 +25,33 @@
 
 @implementation SearchViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 54)];
+    navBar.backgroundColor = [UIColor whiteColor];
+    UINavigationItem *navItem = [[UINavigationItem alloc] init];
+    navItem.title = @"Поиск";
+    navBar.items = @[ navItem ];
+    [self.view addSubview:navBar];
+return self;
+}
 - (void)viewDidLoad
 {
     [self convertButtonTitle:@"Cancel" toTitle:@"Отмена" inView:self.searchBar];
     [super viewDidLoad];
+    self.navigationItem.title = @"Поиск";
     self.DetailViewController = [[DetailViewController alloc] init];
     self.DetailNavigationController = [[UINavigationController alloc] initWithRootViewController:self.DetailViewController];
     self.videoList = [[NSMutableArray alloc] init];
     self.searchBar.delegate = self;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{[self.tableView setContentOffset:CGPointZero animated:NO];
+}
+
 
 - (void)convertButtonTitle:(NSString *)from toTitle:(NSString *)to inView:(UIView *)view
 {
@@ -48,16 +63,15 @@
             [button setTitle:to forState:UIControlStateNormal];
         }
     }
-    
     for (UIView *subview in view.subviews)
     {
         [self convertButtonTitle:from toTitle:to inView:subview];
     }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    
 }
 
 
@@ -127,7 +141,7 @@
     CustomVideoCell *cell = (CustomVideoCell *)[self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
     {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomVideoCell"owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SearchVideoCell"owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     YouTubeVideo *youTubeVideo = self.videoList[indexPath.row];
@@ -146,7 +160,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 300;
+    return 90;
+}
+- (IBAction)back
+{
+[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

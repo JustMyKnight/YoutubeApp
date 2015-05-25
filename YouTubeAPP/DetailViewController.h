@@ -19,5 +19,7 @@
 @property (retain, nonatomic) NSString *DEV_KEY;
 @property (strong, nonatomic) YouTubeVideo *selectedVideo;
 @property (strong, nonatomic) DetailViewController *DetailViewController;
+@property (weak, nonatomic) IBOutlet UILabel *descript;
+@property (weak, nonatomic) IBOutlet UILabel *duration;
 @end
 

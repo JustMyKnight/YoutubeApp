@@ -17,9 +17,7 @@
 @property (strong, nonatomic) NSMutableArray *videoList;
 @property (weak, nonatomic) IBOutlet UILabel *Published;
 @property (weak, nonatomic) IBOutlet UIView *tallMpContainer;
-@property (weak, nonatomic) IBOutlet UIView *mpContainer;
 @property (weak, nonatomic) IBOutlet YTPlayerView *youTubePlayer;
-
 @end
 
 @implementation DetailViewController
@@ -35,21 +33,22 @@
                                                                              target:self
                                                                              action:@selector(back)];        
         [self.navigationItem setLeftBarButtonItem:leftBarButtonItem];
-        
     }
+   
     
     return self;
 }
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
-    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
+     UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
     UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUp:)];    
     swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
-    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;    
-    [self.mpContainer addGestureRecognizer:swipeDown];
-    [self.mpContainer addGestureRecognizer:swipeUp];    
+    swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.youTubePlayer addGestureRecognizer:swipeDown];
+    [self.youTubePlayer addGestureRecognizer:swipeUp];
 }
 
 - (BOOL)mpIsMinimized {
@@ -66,31 +65,34 @@
 
 - (void)minimizeMp:(BOOL)minimized animated:(BOOL)animated 
 { 
-    CGRect tallContainerFrame, containerFrame;
+    
+    
+    CGRect tallContainerFrame, YouTubeVideoFrame;
     CGFloat tallContainerAlpha;
     
-    if (minimized) {
-        CGFloat mpWidth = 160;
-        CGFloat mpHeight = 100; // 160:90 == 16:9
-        
-        CGFloat x = 320-mpWidth;
-        CGFloat y = self.view.bounds.size.height - mpHeight;
-        
+    if (minimized)
+    {
+        CGFloat mpWidth = self.youTubePlayer.frame.size.width / 2;
+        CGFloat mpHeight = self.youTubePlayer.frame.size.height / 2;
+        CGFloat x = self.view.bounds.size.width-mpWidth - 5;
+        CGFloat y = self.view.bounds.size.height-mpHeight - 1;
         tallContainerFrame = CGRectMake(x, y, 150, self.view.bounds.size.height);
-        containerFrame = CGRectMake(x, y, mpWidth, mpHeight);
-        tallContainerAlpha = 0.0;        
-    } else {
+        YouTubeVideoFrame = CGRectMake(x, y, mpWidth, mpHeight);
+        tallContainerAlpha = 0.0;
+        [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    }
+    else
+    {
         tallContainerFrame = CGRectMake(2, 253, 100, 500);
-        containerFrame = CGRectMake(2, 53, 320, 180);
+        YouTubeVideoFrame = CGRectMake(2, 70, 320, 180);
         tallContainerAlpha = 1.0;
-    }    
+      
+    }
     NSTimeInterval duration = (animated)? 0.5 : 0.0;
     [UIView animateWithDuration:duration animations:^{
-        self.tallMpContainer.frame = tallContainerFrame;
-        self.youTubePlayer.frame=containerFrame;
-        //self.youTubePlayer.alpha=tallContainerAlpha;
-        self.mpContainer.frame = containerFrame;
-        self.tallMpContainer.alpha = tallContainerAlpha;
+    self.youTubePlayer.frame = YouTubeVideoFrame;
+    self.tallMpContainer.frame = tallContainerFrame;
+    self.tallMpContainer.alpha = tallContainerAlpha;
     }];
     if ([self mpIsMinimized] == minimized) return;
 }
@@ -114,10 +116,13 @@
              YouTubeVideo *youTubeVideo = [[YouTubeVideo alloc] init];
              NSDictionary* snippet = [item objectForKey:@"snippet"];
              youTubeVideo.title = [snippet objectForKey:@"title"];
+             youTubeVideo.Description = [snippet objectForKey:@"description"];
              NSDictionary* statistics = [item objectForKey:@"statistics"];
              youTubeVideo.viewsCount = [statistics objectForKey:@"viewCount"];
              youTubeVideo.likesCount = [statistics objectForKey:@"likeCount"];
              youTubeVideo.dislikesCount = [statistics objectForKey:@"dislikeCount"];
+             NSDictionary* contentdetails = [item objectForKey:@"contentDetails"];
+             youTubeVideo.duration = [contentdetails objectForKey:@"duration"];
              [self.videoList addObject:youTubeVideo];
              NSDictionary *playerVars = @{@"playsinline" : @1,
                                           @"modestbranding": @1,
@@ -136,6 +141,27 @@
              [self.view_counts setText:youTubeVideo.viewsCount];
              [self.like setText:youTubeVideo.likesCount];
              [self.dislike setText:youTubeVideo.dislikesCount];
+             [self.descript setText: youTubeVideo.Description];
+             
+             NSMutableString *duration = [NSMutableString stringWithString:youTubeVideo.duration];
+             
+             NSString *temp = [duration substringFromIndex:2];
+             temp = [temp substringToIndex:[temp length] - 1];
+             
+             duration = [NSMutableString stringWithString: temp];
+             int i = 0;
+             int length = [duration length];
+             while (i<length)
+             {
+                 char c = [duration characterAtIndex:i];
+                 if(!(c>='0' && c<='9'))
+                 {
+                     NSRange range = {i,1};
+                     [duration replaceCharactersInRange:range withString:@":"];
+                 }
+                 i++;
+             }
+             self.duration.text = duration;
          }
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {         
@@ -148,6 +174,15 @@
      }];
     [super viewWillAppear:animated];
     [operation start];
+    [UIView animateWithDuration:0.5 animations:^
+     {
+         CGRect playerViewRect = self.youTubePlayer.frame;
+         playerViewRect.origin.x = 0;
+         playerViewRect.origin.y = 0;
+         playerViewRect.size.width = self.view.bounds.size.width;
+         playerViewRect.size.height = playerViewRect.size.width / 16 * 9 + 20;
+         self.youTubePlayer.frame = playerViewRect;
+     }];
 }
 
 - (IBAction)back
